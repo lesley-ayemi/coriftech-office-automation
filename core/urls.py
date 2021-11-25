@@ -17,9 +17,20 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from apps.authentication.views import LoginView
 
 
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')), 
     path('admin/', admin.site.urls),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('courses/', include('courses.urls')),
+    path('login/', LoginView.as_view(), name='login')
+    # path('authenticate/', include('authenticate.urls')),
+    # path('account/', include('accountant.urls')),
+    # path('clerks/', include('clerks.urls')),
+    # path('events/', include('events.urls')),
+    # path('faculty/', include('courses.urls')),
+    # path('programs/', include('courses.urls')),
+    # path('students/', include('students.urls')),
+    # path('management/', include('management.urls')),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
